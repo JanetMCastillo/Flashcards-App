@@ -11,7 +11,7 @@ function CreateDeckButton(){
     }
 
     return(
-        <button type="button" class="btn btn-secondary" onClick={routeChange}>+Create Deck</button>
+        <button type="button" className="btn btn-secondary" onClick={routeChange}>+Create Deck</button>
         
     )
 }

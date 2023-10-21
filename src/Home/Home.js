@@ -1,26 +1,47 @@
+import { Link} from "react-router-dom";
 import React from "react";
-import { Link } from "react-router-dom";
 import CreateDeckButton from "../CreateDeck/CreateDeckButton";
+import { deleteDeck } from "../utils/api";
 
-function Home() {
-    
-    return(
-        <>
-        <section className="card">
-            <CreateDeckButton />
-           <h1>rendering in react</h1>
-           <p>lorem uihdfh fhjksf jhfsfj fjds</p>
-           <Link to="/decks/:deckId">
-            <button type="button" class="btn btn-secondary">View</button>
-           </Link>
-            <Link to="/decks/:deckId/study">
-           <button type="button" class="btn btn-primary">Study</button>
-           </Link>
+function Home({decks}){
+
+    async function deleteHandler(deckId) {
+        console.log(deckId)
+        if (window.confirm("Delete this Deck?\n\nYou will not be able to recover it.")) {
+            return await deleteDeck(deckId);
+            
+        }
+    }
+      
+
+
+  const list= decks.map((deck, index)=> (
+        <div className="card" key={index}>
+            
+           <h1 as="h5">{deck.name} </h1>
+           <h5 className="table">{deck.cards.length} cards</h5>
+           <p className="card-body">{deck.description}</p>
+           <form className="form-inline"> 
+                <Link to={`/decks/${deck.id}`}>
+                    <button type="button" className="btn btn-secondary">View</button>
+                </Link>
+                <Link to={`/decks/${deck.id}/study`}>
+                    <button type="button" className="btn btn-primary">Study</button>
+                </Link>
+                <button className='btn btn-danger delete-deck' onClick={() => deleteHandler(deck.id)}>
+                    <i className='bi bi-trash'>Delete</i>
+                </button>          
+           </form>
+        </div>
+        ))
         
-           <button type="button" class="btn btn-danger">Delete</button>
-        </section>
-        </>
-    )
+
+        return (
+            <div>
+                <CreateDeckButton />
+                {list}
+            </div>
+        )
 }
 
 export default Home;

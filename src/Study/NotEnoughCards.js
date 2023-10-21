@@ -1,11 +1,12 @@
-import React from "react";
+
+/*import React from "react";
 import { Link } from "react-router-dom";
 
-function NotEnoughCards({ deck }) {
+function NotEnoughCards({deck}) {
   return (
     <>
       <h3>Not enough cards.</h3>
-      <p>
+    <p>
         You need at least 3 cards to study. There are {deck.cards.length}
         cards in this deck.
       </p>
@@ -17,3 +18,4 @@ function NotEnoughCards({ deck }) {
 }
 
 export default NotEnoughCards;
+*/

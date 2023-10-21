@@ -1,21 +1,81 @@
-import React, { useEffect, useState } from "react";
+/*/this from will be used for ADD CARD and EDIT CARD
 
-function CardForm({ handleSubmit, handleCancel, card }) {
-  const [cardInfo, setCardInfo] = useState(card);
+
+
+
+*/
+import React, { useEffect, useState } from "react";
+function CardForm ({ formData, handleChange}){
+  
+return (
+    <div>
+        <label>
+            Front:
+        </label> <br />
+            <textarea
+            id="front"
+            type="text"
+            name="front"
+            rows="3"
+            onChange={handleChange}
+            value={formData.front}
+            style={{ width: "100%" }}
+            />
+        <br />
+        <br />
+        <label>
+            Back:
+        </label> <br />
+            <textarea
+            id="back"
+            type="textarea"
+            name="back"
+            rows="3"
+            onChange={handleChange}
+            value={formData.back}
+            style={{ width: "100%" }}
+            />
+        </div>
+    )
+};
+export default CardForm;
+
+  /*const history = useHistory();
+  const { deckId } = useParams();
+  const [deck, setDeck] = useState([]);
+  const [formData, setFormData] = useState({
+    front: "",
+    back: "",
+  });
   useEffect(() => {
-    setCardInfo(card);
-  }, [card]);
-  const updateForm = (event) => {
-    const { name, value } = event.target;
-    setCardInfo({ ...cardInfo, [name]: value });
+    async function fetchDeck() {
+      const abortController = new AbortController();
+      const response = await readDeck(deckId, abortController.signal);
+      setDeck(response);
+      return () => abortController.abort();
+    }
+    fetchDeck();
+  },[]);
+
+  const handleChange = ({ target }) => {
+    setFormData({
+      ...formData,
+      [target.name]: target.value,
+    });
   };
-  const submit = (event) => {
+
+  const handleSave = async (event) => {
     event.preventDefault();
-    handleSubmit(cardInfo);
-    setCardInfo({});
+    await createCard(deckId,formData);
+    setFormData({
+      front: "",
+      back: "",
+    });
+    
   };
+  
   return (
-    <form onSubmit={submit}>
+    <form onSubmit={handleSave}>
       <div className='form-group'>
         <label htmlFor='front'>Front</label>
         <textarea
@@ -24,9 +84,9 @@ function CardForm({ handleSubmit, handleCancel, card }) {
           id='front'
           name='front'
           placeholder='Front side of card'
-          //value={cardInfo?.front || ""}
-          onChange={updateForm}
-          required
+          value={formData.front}
+          onChange={handleChange}
+          
         ></textarea>
       </div>
       <div className='form-group'>
@@ -36,14 +96,15 @@ function CardForm({ handleSubmit, handleCancel, card }) {
           name='back'
           id='back'
           placeholder='Back side of card'
-          //value={cardInfo?.back || ""}
-          onChange={updateForm}
-          required
+          value={formData.back}
+          onChange={handleChange}
+        
         ></textarea>
-        <button className='btn btn-secondary my-2' onClick={handleCancel}>
+        <button type="button" className='btn btn-secondary my-2'onClick={() => history.push(`/decks/${deckId}`)}>
           Done
         </button>
-        <button type='submit' className='btn btn-primary my-2'>
+      
+        <button type='submit' onClick= {handleSave} className='btn btn-primary my-2'>
           Save
         </button>
       </div>
@@ -52,3 +113,4 @@ function CardForm({ handleSubmit, handleCancel, card }) {
 }
 
 export default CardForm;
+*/

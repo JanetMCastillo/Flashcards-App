@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./Header";
 import NotFound from "./NotFound";
-import { listDecks } from "../utils/api";
+import { listDecks, createDeck } from "../utils/api";
 import { useState } from "react";
 import Deck from "../Decks/Deck";
 import Home from "../Home/Home";
@@ -18,12 +18,9 @@ function Layout() {
 
   useEffect(() => {
     async function fetchDecks() {
-      try {
         const response = await listDecks();
         setDecks(response);
-      } catch (error) {
-        console.error("Error fetching decks: ", error)
-      }
+      
     }
 
     fetchDecks();
@@ -38,16 +35,16 @@ function Layout() {
 
           <Switch>
             <Route exact={true} path="/">
-              <Home />
+              <Home decks={decks} />
             </Route>
             <Route exact={true} path="/decks/new">
               <CreateDeck />
             </Route>
-            <Route exact={true} path="/decks/:id/study">
-              <Study decks={decks} />
-            </Route>
-            <Route exact={true} path="/decks/:deckid">
+            <Route exact={true} path="/decks/:deckId">
               <Deck decks={decks}/>
+            </Route>
+            <Route exact={true} path="/decks/:deckId/study">
+              <Study decks={decks} />
             </Route>
             <Route  exact path="/decks/:deckId/edit">
               <EditDeck />
@@ -56,7 +53,7 @@ function Layout() {
               <EditCard />
             </Route>
             <Route exact path="/decks/:deckId/cards/new">
-              <AddCard />
+              <AddCard decks={decks}/>
             </Route>
             <Route>
               <NotFound />
