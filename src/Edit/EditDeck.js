@@ -35,11 +35,25 @@ function EditDeck(){
      });
     };
 
-    const handleSubmit= async (event)=>{
-      event.preventDefault()
-      await updateDeck(formData)
-      history.push(`/decks/${deckId}`)
-  };
+    const handleSubmit = (event) => {
+        let output = [];
+        event.preventDefault();
+        //console.log("Submitted:", deck);
+        async function updateData() {
+           try {
+            await updateDeck(deck);
+            history.push(`/decks/${deckId}`);
+          } catch (error) {
+            if (error.name === "AbortError") {
+              // Ignore `AbortError`
+              console.log("Aborted");
+          } else {
+              throw error;
+          }
+        }
+      }
+      updateData();    
+      };
 
     return (
         

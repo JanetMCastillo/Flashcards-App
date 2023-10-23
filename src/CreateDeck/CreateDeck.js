@@ -18,6 +18,7 @@ function CreateDeck(){
      });
     };
     const history = useHistory();
+    
     const handleSubmit = (event) => {
         let output = [];
         event.preventDefault();
@@ -50,7 +51,7 @@ function CreateDeck(){
             <form onSubmit={handleSubmit}>
                 <DeckForm formData={formData} handleChange={handleChange} />
                 <Link to="/" className="btn btn-secondary">Cancel</Link> 
-                <button type="submit" className="btn btn-primary">Save</button>
+                <button type="submit"  className="btn btn-primary">Save</button>
             </form>
         </div>
     );

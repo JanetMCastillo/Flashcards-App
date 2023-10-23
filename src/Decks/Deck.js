@@ -11,8 +11,8 @@ function Deck({decks, setDecks}){
   const [cards, setCards] = useState([]);
   const [deck, setDeck] = useState([]);
   const history = useHistory();
-
   const { deckId } = useParams();
+
   useEffect(() => {
     async function fetchDeck() {
       const response = await readDeck(deckId)
